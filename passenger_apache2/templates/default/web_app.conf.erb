@@ -154,6 +154,7 @@
 
    # if using Amazon ELB with SSL Termination
    # RewriteCond %{HTTP:X-Forwarded-Proto} !https
+   RewriteCond %{SERVER_PROTOCOL} !https
    RewriteRule !/status https://%{SERVER_NAME}%{REQUEST_URI} [L,R]
 
   <% if @params[:local_config] && @params[:local_config] != '' -%>
