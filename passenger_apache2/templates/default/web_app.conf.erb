@@ -152,6 +152,10 @@
   RewriteCond %{SCRIPT_FILENAME} !maintenance.html
   RewriteRule ^.*$ /system/maintenance.html [L]
 
+   # if using Amazon ELB with SSL Termination
+   RewriteCond %{HTTP:X-Forwarded-Proto} !https
+   RewriteRule !/status https://%{SERVER_NAME}%{REQUEST_URI} [L,R]
+
   <% if @params[:local_config] && @params[:local_config] != '' -%>
     <% if node[:apache][:version] == '2.2' -%>
   Include <%= @params[:local_config] %>-ssl*
